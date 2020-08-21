@@ -103,4 +103,12 @@ public class JacksonUtil {
             throw new RuntimeException(e);
         }
     }
+
+    public static byte[] toByteArray(Object obj){
+        try {
+            return mapper.writeValueAsBytes(obj);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

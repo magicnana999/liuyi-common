@@ -28,7 +28,7 @@ public class GsonUtilTest extends JsonCoder {
             Assert.assertEquals("内部 List 中的类型错误", ret.getPlatformList().get(0).getClass(), ProductAppendClassPlatformItemVo.class);
             Assert.assertEquals("Object属性应该转为 LinkedTreeMap", ret.getBody().getClass(), LinkedTreeMap.class);
 
-            Product product = GsonUtil.toJava((LinkedTreeMap) ret.getBody(), Product.class);
+            Product product = GsonUtil.toJava(ret.getBody(), Product.class);
             Assert.assertTrue("LinkedTreeMap解析错误",product!=null );
 
         }

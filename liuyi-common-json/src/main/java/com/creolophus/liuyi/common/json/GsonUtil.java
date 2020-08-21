@@ -49,7 +49,7 @@ public class GsonUtil {
      * @param <T>
      * @return
      */
-    public static <T> T toJava(LinkedTreeMap linkedTreeMap,Type type){
+    public static <T> T toJava(Object linkedTreeMap,Type type){
         JsonObject jsonObject = gson.toJsonTree(linkedTreeMap).getAsJsonObject();
         return toJava(jsonObject.toString(),type);
 
@@ -61,5 +61,12 @@ public class GsonUtil {
 
     public static String toJson(Object obj){
         return gson.toJson(obj);
+    }
+
+    public static byte[] toByteArray(Object obj){
+        if(obj ==null){
+            return null;
+        }
+        return gson.toJson(obj).getBytes();
     }
 }
