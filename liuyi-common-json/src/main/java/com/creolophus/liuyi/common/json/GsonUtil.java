@@ -39,6 +39,9 @@ public class GsonUtil {
      * @return
      */
     public static <T> T toJava(String string, Type type){
+        if(null == string || "".equals(string)){
+            return null;
+        }
         return gson.fromJson(string,type);
     }
 
@@ -50,16 +53,25 @@ public class GsonUtil {
      * @return
      */
     public static <T> T toJava(Object linkedTreeMap,Type type){
+        if(linkedTreeMap==null){
+            return null;
+        }
         JsonObject jsonObject = gson.toJsonTree(linkedTreeMap).getAsJsonObject();
         return toJava(jsonObject.toString(),type);
 
     }
 
     public static <T> T toJava(byte[] bytes,Type type){
+        if(bytes==null){
+            return null;
+        }
         return gson.fromJson(new String(bytes),type);
     }
 
     public static String toJson(Object obj){
+        if(obj==null){
+            return null;
+        }
         return gson.toJson(obj);
     }
 

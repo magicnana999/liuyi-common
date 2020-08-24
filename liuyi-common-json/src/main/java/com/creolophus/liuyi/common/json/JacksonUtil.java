@@ -47,6 +47,9 @@ public class JacksonUtil {
     }
 
     public static <T> T toJava(byte[] bytes,Class<T> clazz){
+        if(bytes==null){
+            return null;
+        }
         try {
             return mapper.readValue(bytes, clazz);
         } catch (IOException e) {
@@ -55,6 +58,10 @@ public class JacksonUtil {
     }
 
     public static <T> T toJava(String string, TypeReference<T> type){
+        if(null == string || "".equals(string)){
+            return null;
+        }
+
         try {
             return mapper.readValue(string, type);
         } catch (IOException e) {
@@ -63,6 +70,9 @@ public class JacksonUtil {
     }
 
     public static <T> T toJava(byte[] bytes,TypeReference<T> type){
+        if(bytes==null){
+            return null;
+        }
         try {
             return mapper.readValue(bytes, type);
         } catch (IOException e) {
@@ -71,6 +81,9 @@ public class JacksonUtil {
     }
 
     public static <T> T toJava(String string, JavaType type){
+        if(null == string || "".equals(string)){
+            return null;
+        }
         try {
             return mapper.readValue(string, type);
         } catch (IOException e) {
@@ -79,6 +92,9 @@ public class JacksonUtil {
     }
 
     public static <T> T toJava(byte[] bytes,JavaType type){
+        if(bytes==null){
+            return null;
+        }
         try {
             return mapper.readValue(bytes, type);
         } catch (IOException e) {
@@ -87,6 +103,10 @@ public class JacksonUtil {
     }
 
     public static <T> T toJava(String string,Class<T> clazz){
+        if(null == string || "".equals(string)){
+            return null;
+        }
+
         try {
             return mapper.readValue(string, clazz);
         } catch (IOException e) {
@@ -95,10 +115,16 @@ public class JacksonUtil {
     }
 
     public static <T> T toJava(Object object, Class<T> clazz){
+        if(object==null){
+            return null;
+        }
         return mapper.convertValue(object, clazz);
     }
 
     public static String toJson(Object obj){
+        if(obj == null){
+            return null;
+        }
         try {
             return mapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
@@ -107,6 +133,9 @@ public class JacksonUtil {
     }
 
     public static byte[] toByteArray(Object obj){
+        if(obj == null){
+            return null;
+        }
         try {
             return mapper.writeValueAsBytes(obj);
         } catch (JsonProcessingException e) {
