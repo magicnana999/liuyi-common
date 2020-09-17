@@ -35,7 +35,7 @@ public class ProductAppendClassVo<T> {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(Product pp) {
+        this.product = pp;
     }
 }

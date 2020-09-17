@@ -4,160 +4,164 @@ import java.util.Date;
 
 
 /**
-* @author magicnana
-* @date 2019-07-25
-*/
+ * @author magicnana
+ * @date 2019-07-25
+ */
 
-public class Client  {
+public class Client {
 
-	private String clientKey ;
-	private Integer clientType ;
-	private Integer h5Require ;
-	private Integer state ;
-	private String description ;
-	private Date createTime ;
-	private Date updateTime ;
+    private String clientKey;
+    private Integer clientType;
+    private Integer h5Require;
+    private Integer state;
+    private String description;
+    private Date createTime;
+    private Date updateTime;
 
-	public Client() {
-	}
+    public Client() {
+    }
 
-	public String getClientKey(){
-		return  clientKey;
-	}
-	public void setClientKey(String clientKey ){
-		this.clientKey = clientKey;
-	}
+    public String getClientKey() {
+        return clientKey;
+    }
 
-	public Integer getClientType(){
-		return  clientType;
-	}
-	public void setClientType(Integer clientType ){
-		this.clientType = clientType;
-	}
+    public void setClientKey(String clientKey) {
+        this.clientKey = clientKey;
+    }
 
-	public Date getCreateTime(){
-		return  createTime;
-	}
+    public Integer getClientType() {
+        return clientType;
+    }
 
-	public void setCreateTime(Date createTime ){
-		this.createTime = createTime;
-	}
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
+    }
 
-	public String getDescription(){
-		return  description;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setDescription(String description ){
-		this.description = description;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public Integer getH5Require(){
-		return  h5Require;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setH5Require(Integer h5Require ){
-		this.h5Require = h5Require;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public Integer getState(){
-		return  state;
-	}
+    public Integer getH5Require() {
+        return h5Require;
+    }
 
-	public void setState(Integer state ){
-		this.state = state;
-	}
+    public void setH5Require(Integer h5Require) {
+        this.h5Require = h5Require;
+    }
 
-	public Date getUpdateTime(){
-		return  updateTime;
-	}
+    public Integer getState() {
+        return state;
+    }
 
-	public void setUpdateTime(Date updateTime ){
-		this.updateTime = updateTime;
-	}
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
-	public String h5RequireDesc(){
-		return H5Require.YES.getValue()==this.getH5Require()?"必填":"可选";
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
-	@Override
-	public String toString() {
-		return clientKey;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public enum ClientType {
-		IOS(1),
-		ANDROID(2),
-		WEB(3),
-		;
+    public String h5RequireDesc() {
+        return H5Require.YES.getValue() == this.getH5Require() ? "必填" : "可选";
+    }
 
-		int value;
+    @Override
+    public String toString() {
+        return clientKey;
+    }
 
-		ClientType(int value) {
-			this.value = value;
-		}
+    public enum ClientType {
+        IOS(1),
+        ANDROID(2),
+        WEB(3),
+        ;
 
-		public int getValue() {
-			return this.value;
-		}
+        int value;
 
-		public static boolean isAndroid(int value){
-			if(value == ANDROID.getValue()){
-				return true;
-			}else{
-				return false;
-			}
-		}
+        ClientType(int value) {
+            this.value = value;
+        }
 
-		public static boolean isIOS(int value){
-			if(value == IOS.getValue()){
-				return true;
-			}else{
-				return false;
-			}
-		}
+        public int getValue() {
+            return this.value;
+        }
 
-		public static ClientType valueOf(Integer value) {
+        public static boolean isAndroid(int value) {
+            if(value == ANDROID.getValue()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
-			if(value==null){
-				return null;
-			}
+        public static boolean isIOS(int value) {
+            if(value == IOS.getValue()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
-			for (ClientType state : ClientType.values()) {
-				if(state.getValue() == value) {
-					return state;
-				}
-			} return null;
-		}
-	}
+        public static ClientType valueOf(Integer value) {
 
-	public enum H5Require {
-		NO(0),
-		YES(1),
-		;
+            if(value == null) {
+                return null;
+            }
 
-		int value;
-		String desc;
+            for (ClientType state : ClientType.values()) {
+                if(state.getValue() == value) {
+                    return state;
+                }
+            }
+            return null;
+        }
+    }
 
-		H5Require(int value) {
-			this.value = value;
-		}
+    public enum H5Require {
+        NO(0),
+        YES(1),
+        ;
 
-		public int getValue() {
-			return this.value;
-		}
+        int value;
+        String desc;
 
-		public static H5Require valueOf(Integer value) {
+        H5Require(int value) {
+            this.value = value;
+        }
 
-			if(value==null){
-				return null;
-			}
+        public int getValue() {
+            return this.value;
+        }
+
+        public static H5Require valueOf(Integer value) {
+
+            if(value == null) {
+                return null;
+            }
 
 
-			for (H5Require state : H5Require.values()) {
-				if(state.getValue() == value) {
-					return state;
-				}
-			} return null;
-		}
-	}
+            for (H5Require state : H5Require.values()) {
+                if(state.getValue() == value) {
+                    return state;
+                }
+            }
+            return null;
+        }
+    }
 }

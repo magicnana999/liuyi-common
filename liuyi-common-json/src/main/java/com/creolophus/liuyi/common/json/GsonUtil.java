@@ -1,9 +1,6 @@
 package com.creolophus.liuyi.common.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
@@ -20,14 +17,54 @@ import java.lang.reflect.Type;
 public class GsonUtil {
 
 
-    private static Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private static Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").setExclusionStrategies(new ExclusionStrategy() {
+        @Override
+        public boolean shouldSkipField(FieldAttributes f) {
+            return f.getName().equals("password");
+        }
 
-    public static synchronized void init(Gson input){
+        @Override
+        public boolean shouldSkipClass(Class<?> clazz) {
+            return false;
+        }
+    }).create();
+
+    public static Gson gson() {
+        return gson;
+    }
+
+    public static synchronized void init(Gson input) {
         gson = input;
     }
 
-    public static Gson gson(){
-        return gson;
+    public static byte[] toByteArray(Object obj) {
+        if(obj == null) {
+            return null;
+        }
+        return gson.toJson(obj).getBytes();
+    }
+
+    /**
+     * 如果泛型或 Object 是不确定的类型,需要在运行时根据不同的业务,解析成不同的类型,那么这里需要一个单独解析 LinkedTreeMap 的方法.
+     * @param linkedTreeMap
+     * @param type
+     * @param <T>
+     * @return
+     */
+    public static <T> T toJava(Object linkedTreeMap, Type type) {
+        if(linkedTreeMap == null) {
+            return null;
+        }
+        JsonObject jsonObject = gson.toJsonTree(linkedTreeMap).getAsJsonObject();
+        return toJava(jsonObject.toString(), type);
+
+    }
+
+    public static <T> T toJava(byte[] bytes, Type type) {
+        if(bytes == null) {
+            return null;
+        }
+        return gson.fromJson(new String(bytes), type);
     }
 
     /**
@@ -38,47 +75,17 @@ public class GsonUtil {
      * @param <T>
      * @return
      */
-    public static <T> T toJava(String string, Type type){
-        if(null == string || "".equals(string)){
+    public static <T> T toJava(String string, Type type) {
+        if(null == string || "".equals(string)) {
             return null;
         }
-        return gson.fromJson(string,type);
+        return gson.fromJson(string, type);
     }
 
-    /**
-     * 如果泛型或 Object 是不确定的类型,需要在运行时根据不同的业务,解析成不同的类型,那么这里需要一个单独解析 LinkedTreeMap 的方法.
-     * @param linkedTreeMap
-     * @param type
-     * @param <T>
-     * @return
-     */
-    public static <T> T toJava(Object linkedTreeMap,Type type){
-        if(linkedTreeMap==null){
-            return null;
-        }
-        JsonObject jsonObject = gson.toJsonTree(linkedTreeMap).getAsJsonObject();
-        return toJava(jsonObject.toString(),type);
-
-    }
-
-    public static <T> T toJava(byte[] bytes,Type type){
-        if(bytes==null){
-            return null;
-        }
-        return gson.fromJson(new String(bytes),type);
-    }
-
-    public static String toJson(Object obj){
-        if(obj==null){
+    public static String toJson(Object obj) {
+        if(obj == null) {
             return null;
         }
         return gson.toJson(obj);
-    }
-
-    public static byte[] toByteArray(Object obj){
-        if(obj ==null){
-            return null;
-        }
-        return gson.toJson(obj).getBytes();
     }
 }

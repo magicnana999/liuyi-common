@@ -15,24 +15,24 @@ public class JsonCoder {
     protected ProductAppendClassVo<Product> bean;
     protected String date = "2020-02-02 12:12:12";
 
-    public JsonCoder()  {
+    public JsonCoder() {
 
         List<ProductAppendClassPlatformItemVo> platformList = new ArrayList<>();
-        for(int i=0;i<4;i++){
+        for (int i = 0; i < 4; i++) {
 
             List<ProductAppendClassClientItemVo> clientList = new ArrayList<>();
-            for(int j=0;j<4;j++){
+            for (int j = 0; j < 4; j++) {
 
                 List<PccAndClazzVo> clazzList = new ArrayList<>();
-                for(int m=0;m<4;m++){
+                for (int m = 0; m < 4; m++) {
                     PccAndClazzVo vo = new PccAndClazzVo();
-                    vo.setClazzName("clazz "+i+"."+j+"."+m);
-                    vo.setSort(m+1000);
+                    vo.setClazzName("clazz " + i + "." + j + "." + m);
+                    vo.setSort(m + 1000);
                     clazzList.add(vo);
                 }
 
                 Client client = new Client();
-                client.setClientKey("client"+i+"."+j);
+                client.setClientKey("client" + i + "." + j);
 
                 ProductAppendClassClientItemVo vo = new ProductAppendClassClientItemVo();
                 vo.setClient(client);
@@ -42,7 +42,7 @@ public class JsonCoder {
             }
 
             Platform platform = new Platform();
-            platform.setPlatformKey("platform"+i);
+            platform.setPlatformKey("platform" + i);
 
             ProductAppendClassPlatformItemVo vo = new ProductAppendClassPlatformItemVo();
             vo.setPlatform(platform);
@@ -63,7 +63,7 @@ public class JsonCoder {
         bean.setBody(product);
     }
 
-    private Date getDate(){
+    private Date getDate() {
         try {
             return (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(date);
         } catch (ParseException e) {

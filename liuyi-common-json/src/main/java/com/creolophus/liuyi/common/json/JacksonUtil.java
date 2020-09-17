@@ -6,11 +6,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.LinkedHashMap;
 import java.util.TimeZone;
 
 /**
@@ -25,8 +23,9 @@ import java.util.TimeZone;
 public class JacksonUtil {
 
     /**
-     这里有一个栗子:
-     https://github.com/easonjim/5_java_example/blob/master/springboottest/springboottest10/src/main/java/com/jsoft/springboottest/springboottest1/controller/TestController.java
+     * 这里有一个栗子:
+     * https://github.com/easonjim/5_java_example/blob/master/springboottest/springboottest10/src/main/java/com/jsoft/springboottest/springboottest1
+     * /controller/TestController.java
      */
 
     private static ObjectMapper mapper = new ObjectMapper();
@@ -38,16 +37,27 @@ public class JacksonUtil {
         mapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
     }
 
-    public static synchronized void init(ObjectMapper input){
+    public static synchronized void init(ObjectMapper input) {
         mapper = input;
     }
 
-    public static ObjectMapper mapper(){
+    public static ObjectMapper mapper() {
         return mapper;
     }
 
-    public static <T> T toJava(byte[] bytes,Class<T> clazz){
-        if(bytes==null){
+    public static byte[] toByteArray(Object obj) {
+        if(obj == null) {
+            return null;
+        }
+        try {
+            return mapper.writeValueAsBytes(obj);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T toJava(byte[] bytes, Class<T> clazz) {
+        if(bytes == null) {
             return null;
         }
         try {
@@ -57,8 +67,8 @@ public class JacksonUtil {
         }
     }
 
-    public static <T> T toJava(String string, TypeReference<T> type){
-        if(null == string || "".equals(string)){
+    public static <T> T toJava(String string, TypeReference<T> type) {
+        if(null == string || "".equals(string)) {
             return null;
         }
 
@@ -69,8 +79,8 @@ public class JacksonUtil {
         }
     }
 
-    public static <T> T toJava(byte[] bytes,TypeReference<T> type){
-        if(bytes==null){
+    public static <T> T toJava(byte[] bytes, TypeReference<T> type) {
+        if(bytes == null) {
             return null;
         }
         try {
@@ -80,8 +90,8 @@ public class JacksonUtil {
         }
     }
 
-    public static <T> T toJava(String string, JavaType type){
-        if(null == string || "".equals(string)){
+    public static <T> T toJava(String string, JavaType type) {
+        if(null == string || "".equals(string)) {
             return null;
         }
         try {
@@ -91,8 +101,8 @@ public class JacksonUtil {
         }
     }
 
-    public static <T> T toJava(byte[] bytes,JavaType type){
-        if(bytes==null){
+    public static <T> T toJava(byte[] bytes, JavaType type) {
+        if(bytes == null) {
             return null;
         }
         try {
@@ -102,8 +112,8 @@ public class JacksonUtil {
         }
     }
 
-    public static <T> T toJava(String string,Class<T> clazz){
-        if(null == string || "".equals(string)){
+    public static <T> T toJava(String string, Class<T> clazz) {
+        if(null == string || "".equals(string)) {
             return null;
         }
 
@@ -114,30 +124,19 @@ public class JacksonUtil {
         }
     }
 
-    public static <T> T toJava(Object object, Class<T> clazz){
-        if(object==null){
+    public static <T> T toJava(Object object, Class<T> clazz) {
+        if(object == null) {
             return null;
         }
         return mapper.convertValue(object, clazz);
     }
 
-    public static String toJson(Object obj){
-        if(obj == null){
+    public static String toJson(Object obj) {
+        if(obj == null) {
             return null;
         }
         try {
             return mapper.writeValueAsString(obj);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static byte[] toByteArray(Object obj){
-        if(obj == null){
-            return null;
-        }
-        try {
-            return mapper.writeValueAsBytes(obj);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
