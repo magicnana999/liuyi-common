@@ -45,6 +45,26 @@ public class GsonUtil {
     }
 
     /**
+     new ParameterizedType() {
+    @Override public Type[] getActualTypeArguments() {
+    return new Type[]{type};
+    }
+
+    @Override public Type getRawType() {
+    return java.util.ArrayList.class;
+    }
+
+    @Override public Type getOwnerType() {
+    return null;
+    }
+    }
+
+
+
+
+     */
+
+    /**
      * 如果泛型或 Object 是不确定的类型,需要在运行时根据不同的业务,解析成不同的类型,那么这里需要一个单独解析 LinkedTreeMap 的方法.
      * @param linkedTreeMap
      * @param type
@@ -55,9 +75,21 @@ public class GsonUtil {
         if(linkedTreeMap == null) {
             return null;
         }
-        JsonObject jsonObject = gson.toJsonTree(linkedTreeMap).getAsJsonObject();
-        return toJava(jsonObject.toString(), type);
+        JsonElement jsonElement = gson.toJsonTree(linkedTreeMap);
 
+        if(jsonElement.isJsonNull()) {
+            return null;
+        }
+
+        if(jsonElement.isJsonObject()) {
+            return toJava(jsonElement.getAsJsonObject().toString(), type);
+        }
+
+        if(jsonElement.isJsonArray()) {
+            return toJava(jsonElement.getAsJsonArray().toString(), type);
+        }
+
+        throw new RuntimeException("Not a JSON Object or JSON Array");
     }
 
     public static <T> T toJava(byte[] bytes, Type type) {

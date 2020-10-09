@@ -7,12 +7,12 @@
     <parent>
         <artifactId>liuyi-common</artifactId>
         <groupId>com.creolophus</groupId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
 
     <artifactId>liuyi-common-json</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <dependencies>
         <dependency>
