@@ -20,7 +20,8 @@ public class GsonUtil {
     private static Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").setExclusionStrategies(new ExclusionStrategy() {
         @Override
         public boolean shouldSkipField(FieldAttributes f) {
-            return f.getName().equals("password");
+//            return f.getName().equals("password");
+            return false;
         }
 
         @Override
